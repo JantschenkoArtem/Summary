@@ -1,0 +1,61 @@
+
+
+  Создайте класс Рожок для мороженого.
+ Создайте класс Шарик мороженого, содержащий поле Вкус.
+ При создании объекта Рожок указывается, сколько шариков в него помещается.
+ В программе создайте рожок на три шарика, положите в него три шарика с разными вкусами.
+ Создайте класс Дегустатор мороженого. В классе создайте метод,
+ который принимает рожок мороженного, съедает их и сообщает,
+ шарик с каким вкусом был съеден. Дегустатор может есть шарики только в порядке,
+ обратном порядку складывания шариков в рожок.
+ Какую коллекцию нужно использовать для хранения шариков в рожке?
+
+ import java.util.Stack;
+
+ class IceCreamScoop {
+     String flavor;
+
+     public IceCreamScoop(String flavor) {
+         this.flavor = flavor;
+     }
+
+     public String getFlavor() {
+         return this.flavor;
+     }
+ }
+
+ class IceCreamCone {
+     Stack<IceCreamScoop> scoops;
+
+     public IceCreamCone() {
+         this.scoops = new Stack<>();
+     }
+
+     public void addScoop(IceCreamScoop scoop) {
+         this.scoops.push(scoop);
+     }
+
+     public IceCreamScoop eatScoop() {
+         return this.scoops.pop();
+     }
+ }
+
+ class IceCreamTaster {
+     public void taste(IceCreamCone cone) {
+         while (!cone.scoops.isEmpty()) {
+             System.out.println("Съеден шарик со вкусом: " + cone.eatScoop().getFlavor());
+         }
+     }
+ }
+
+ public class Main {
+     public static void main(String[] args) {
+         IceCreamCone cone = new IceCreamCone();
+         cone.addScoop(new IceCreamScoop("Ваниль"));
+         cone.addScoop(new IceCreamScoop("Шоколад"));
+         cone.addScoop(new IceCreamScoop("Клубника"));
+
+         IceCreamTaster taster = new IceCreamTaster();
+         taster.taste(cone);
+     }
+ }
